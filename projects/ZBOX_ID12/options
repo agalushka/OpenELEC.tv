@@ -98,3 +98,9 @@
   # Space separated list is supported,
   # e.g. ADDITIONAL_DRIVERS="DRIVER1 DRIVER2"
     ADDITIONAL_DRIVERS="$ADDITIONAL_DRIVERS"
+
+  # set the addon dirs
+    ADDON_PATH="$ADDON_VERSION/Generic/$TARGET_ARCH"
+    ADDON_URL="$ADDON_SERVER_URL/$ADDON_PATH"
+    
+    
