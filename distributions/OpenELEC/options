@@ -1,18 +1,18 @@
 # Name of the Distro to build (full name, without special characters)
-  DISTRONAME="ZboxELEC"
+  DISTRONAME="OpenELEC"
 
 # short project description
-  DESCRIPTION="ZboxELEC is a fast and user-friendly Kodi Entertainment Center distribution."
+  DESCRIPTION="OpenELEC is a fast and user-friendly Kodi Entertainment Center distribution."
 
 # Welcome Message for e.g. SSH Server (up to 5 Lines)
   GREETING0="##############################################"
-  GREETING1="#                  ZboxELEC                  #"
+  GREETING1="#                  OpenELEC                  #"
   GREETING2="#             http://openelec.tv             #"
   GREETING3="##############################################"
   GREETING4=""
 
 # Root password to integrate in the target system
-  ROOT_PASSWORD="zboxelec"
+  ROOT_PASSWORD="openelec"
 
 # Install glibc locales to the build (yes / no)
   GLIBC_LOCALES="yes"
