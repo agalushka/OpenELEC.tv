@@ -1,6 +1,6 @@
 ################################################################################
 #      This file is part of OpenELEC - http://www.openelec.tv
-#      Copyright (C) 2009-2016 Stephan Raue (stephan@openelec.tv)
+#      Copyright (C) 2009-2014 Stephan Raue (stephan@openelec.tv)
 #
 #  OpenELEC is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -16,22 +16,26 @@
 #  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="hdparm"
-PKG_VERSION="9.48"
+PKG_NAME="atvboot"
+PKG_VERSION="1.1"
 PKG_REV="1"
-PKG_ARCH="any"
-PKG_LICENSE="BSD"
-PKG_SITE="http://sourceforge.net/projects/hdparm/"
-PKG_URL="$SOURCEFORGE_SRC/$PKG_NAME/$PKG_NAME/$PKG_NAME-$PKG_VERSION.tar.gz"
+PKG_ARCH="i386 x86_64"
+PKG_LICENSE="GPL"
+PKG_SITE="http://openelec.tv"
+PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.gz"
 PKG_DEPENDS_TARGET="toolchain"
 PKG_PRIORITY="optional"
 PKG_SECTION="tools"
-PKG_SHORTDESC="hdparm: Get/set hard disk parameters"
-PKG_LONGDESC="Shell utility to access/tune ioctl features of the Linux IDE driver and IDE drives."
+PKG_SHORTDESC="atvboot: ATV Boot/Installer files"
+PKG_LONGDESC="atvboot: ATV Boot/Installer files"
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-PKG_MAKE_OPTS_TARGET="binprefix=/usr sbindir=/usr/bin"
+make_target() {
+  : # nothing todo
+}
 
-#export LDFLAGS="$CFLAGS $LDFLAGS -fwhole-program"
+makeinstall_target() {
+  : # nothing todo
+}

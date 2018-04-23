@@ -1,6 +1,6 @@
 ################################################################################
 #      This file is part of OpenELEC - http://www.openelec.tv
-#      Copyright (C) 2009-2016 Stephan Raue (stephan@openelec.tv)
+#      Copyright (C) 2009-2014 Stephan Raue (stephan@openelec.tv)
 #
 #  OpenELEC is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -16,22 +16,37 @@
 #  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="hdparm"
-PKG_VERSION="9.48"
+PKG_NAME="darwin-cross"
+PKG_VERSION="1"
 PKG_REV="1"
 PKG_ARCH="any"
-PKG_LICENSE="BSD"
-PKG_SITE="http://sourceforge.net/projects/hdparm/"
-PKG_URL="$SOURCEFORGE_SRC/$PKG_NAME/$PKG_NAME/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_LICENSE="GPL"
+PKG_SITE="http://gcc.gnu.org/"
+PKG_URL="http://atv-bootloader.googlecode.com/files/$PKG_NAME.tar.gz"
+PKG_SOURCE_DIR="$PKG_NAME"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
-PKG_SECTION="tools"
-PKG_SHORTDESC="hdparm: Get/set hard disk parameters"
-PKG_LONGDESC="Shell utility to access/tune ioctl features of the Linux IDE driver and IDE drives."
+PKG_SECTION="toolchain/toolchains"
+PKG_SHORTDESC="darwin-cross: darwin gcc etc"
+PKG_LONGDESC="This package contains the GNU Compiler Collection to build for darwin systems"
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-PKG_MAKE_OPTS_TARGET="binprefix=/usr sbindir=/usr/bin"
+post_unpack() {
+# extract toolchain
+  tar -xzf $PKG_BUILD/darwin-cross.tar.gz -C $TOOLCHAIN
 
-#export LDFLAGS="$CFLAGS $LDFLAGS -fwhole-program"
+# fix 'as'
+  rm -rf $TOOLCHAIN/$PKG_NAME/i386-apple-darwin8/bin/as
+  ln -sf ../../libexec/10.4/as/i386/as $TOOLCHAIN/$PKG_NAME/i386-apple-darwin8/bin/as
+}
+
+make_target() {
+  : # nothing todo
+}
+
+makeinstall_target() {
+  : # nothing todo
+}
+
