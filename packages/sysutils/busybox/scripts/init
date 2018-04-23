@@ -336,6 +336,23 @@
     umount /sysroot
   }
 
+  hfsdiskprep() {
+    for DEVICE in $(/bin/busybox blkid /dev/sd* | sed -e "s,\",,g"| grep $boot); do
+      for device in $(/bin/busybox blkid $DEVICE); do
+        case $device in
+          TYPE=*)
+            FS_TYPE=${device#TYPE=}
+            ;;
+        esac
+      done
+
+      if [ "$FS_TYPE" = "\"hfs\"" -o "$FS_TYPE" = "\"hfsplus\"" ]; then
+        progress "check filesystem $DEVICE [$FS_TYPE]..."
+        /bin/fsck_hfs -r -y $DEVICE >&$SILENT_OUT 2>&1
+      fi
+    done
+  }
+
   load_modules() {
     progress "Loading kernel modules"
 
@@ -401,6 +418,12 @@
   check_disks() {
     if [ "$RUN_FSCK" = "yes" -a -n "$RUN_FSCK_DISKS" ]; then
       progress "Checking disk(s): $RUN_FSCK_DISKS"
+
+        if [ -x /bin/fsck_hfs ]; then
+          # deal with hfs partitions
+          hfsdiskprep
+        fi
+
         /sbin/fsck -T -M -p -a $RUN_FSCK_DISKS > /dev/null 2>&1
         FSCK_RET="$?"
 
@@ -480,6 +503,11 @@
 
   check_update() {
     progress "Checking for updates"
+
+    # check for ATV1 mach-o-kernel
+    if [ -f "/flash/com.apple.Boot.plist" -a -f "/flash/boot.efi" ]; then
+      UPDATE_KERNEL="MACH_KERNEL"
+    fi
 
     UPDATE_TAR=`ls -1 "$UPDATE_DIR"/*.tar 2>/dev/null | head -n 1`
     if [ -f "$UPDATE_DIR/$UPDATE_KERNEL" -a -f "$UPDATE_DIR/$UPDATE_SYSTEM" -o -f "$UPDATE_TAR" ] ; then

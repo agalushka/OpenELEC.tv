@@ -16,35 +16,37 @@
 #  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="initramfs"
-PKG_VERSION=""
+PKG_NAME="darwin-cross"
+PKG_VERSION="1"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
-PKG_SITE="http://www.openelec.tv"
-PKG_URL=""
-PKG_DEPENDS_TARGET="toolchain libc:init busybox:init linux:init plymouth-lite:init diskdev_cmds:init util-linux:init e2fsprogs:init dosfstools:init"
+PKG_SITE="http://gcc.gnu.org/"
+PKG_URL="http://atv-bootloader.googlecode.com/files/$PKG_NAME.tar.gz"
+PKG_SOURCE_DIR="$PKG_NAME"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
-PKG_SECTION="virtual"
-PKG_SHORTDESC="initramfs: Metapackage for installing initramfs"
-PKG_LONGDESC="debug is a Metapackage for installing initramfs"
+PKG_SECTION="toolchain/toolchains"
+PKG_SHORTDESC="darwin-cross: darwin gcc etc"
+PKG_LONGDESC="This package contains the GNU Compiler Collection to build for darwin systems"
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-if [ "$ISCSI_SUPPORT" = yes ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET open-iscsi:init"
-fi
+post_unpack() {
+# extract toolchain
+  tar -xzf $PKG_BUILD/darwin-cross.tar.gz -C $TOOLCHAIN
 
-if [ "$INITRAMFS_PARTED_SUPPORT" = yes ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET util-linux:init"
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET e2fsprogs:init"
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET parted:init"
-fi
-
-post_install() {
-  cd $ROOT/$BUILD/initramfs
-    mkdir -p $ROOT/$BUILD/image/
-    find . | cpio -H newc -ov -R 0:0 > $ROOT/$BUILD/image/initramfs.cpio
-  cd -
+# fix 'as'
+  rm -rf $TOOLCHAIN/$PKG_NAME/i386-apple-darwin8/bin/as
+  ln -sf ../../libexec/10.4/as/i386/as $TOOLCHAIN/$PKG_NAME/i386-apple-darwin8/bin/as
 }
+
+make_target() {
+  : # nothing todo
+}
+
+makeinstall_target() {
+  : # nothing todo
+}
+

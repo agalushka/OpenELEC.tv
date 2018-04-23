@@ -16,35 +16,35 @@
 #  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="initramfs"
-PKG_VERSION=""
+PKG_NAME="atv-bootloader"
+PKG_VERSION="r520"
 PKG_REV="1"
-PKG_ARCH="any"
+PKG_ARCH="i386 x86_64"
 PKG_LICENSE="GPL"
-PKG_SITE="http://www.openelec.tv"
-PKG_URL=""
-PKG_DEPENDS_TARGET="toolchain libc:init busybox:init linux:init plymouth-lite:init diskdev_cmds:init util-linux:init e2fsprogs:init dosfstools:init"
+PKG_SITE="http://code.google.com/p/atv-bootloader/"
+PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.xz"
+PKG_DEPENDS_TARGET="toolchain atvboot darwin-cross linux"
 PKG_PRIORITY="optional"
-PKG_SECTION="virtual"
-PKG_SHORTDESC="initramfs: Metapackage for installing initramfs"
-PKG_LONGDESC="debug is a Metapackage for installing initramfs"
+PKG_SECTION="tools"
+PKG_SHORTDESC="atv-bootloader: Tool to create a mach_kernel compaitible kernel image"
+PKG_LONGDESC="atv-bootloader which uses principals from mach_linux_boot to boot a compiled-in Linux kernel"
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-if [ "$ISCSI_SUPPORT" = yes ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET open-iscsi:init"
-fi
+PKG_MAKE_OPTS_TARGET="KERN_OBJ=vmlinuz.obj \
+                      CC=$ROOT/$TOOLCHAIN/darwin-cross/bin/i386-apple-darwin8-gcc-4.0.1 \
+                      LD=$ROOT/$TOOLCHAIN/darwin-cross/bin/i386-apple-darwin8-ld"
 
-if [ "$INITRAMFS_PARTED_SUPPORT" = yes ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET util-linux:init"
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET e2fsprogs:init"
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET parted:init"
-fi
+pre_make_target() {
+  unset LDFLAGS
 
-post_install() {
-  cd $ROOT/$BUILD/initramfs
-    mkdir -p $ROOT/$BUILD/image/
-    find . | cpio -H newc -ov -R 0:0 > $ROOT/$BUILD/image/initramfs.cpio
-  cd -
+  rm -rf mach_kernel vmlinuz initrd.gz
+  cp -PR $(kernel_path)/arch/x86/boot/bzImage vmlinuz
+
+  make clean
+}
+
+makeinstall_target() {
+  : # nothing todo
 }
