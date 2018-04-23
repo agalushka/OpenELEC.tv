@@ -76,7 +76,7 @@
 # for a list of additinoal drivers see packages/linux-drivers
 # Space separated list is supported,
 # e.g. ADDITIONAL_DRIVERS="DRIVER1 DRIVER2"
-  ADDITIONAL_DRIVERS="RTL8192CU RTL8192DU RTL8188EU RTL8812AU dvbhdhomerun bcm_sta"
+  ADDITIONAL_DRIVERS="RTL8192CU"
 
 # build and install bluetooth support (yes / no)
   BLUETOOTH_SUPPORT="yes"
@@ -154,13 +154,7 @@
 # Xorg Graphic drivers to use (all / i915,i965,r200,r300,r600,nvidia,nouveau)
 # Space separated list is supported,
 # e.g. GRAPHIC_DRIVERS="i915 i965 r300 r600 radeonsi nvidia nouveau"
-  if [ "$TARGET_ARCH" = "i386" ]; then
-    # install legacy drivers to i386 ARCH
-    GRAPHIC_DRIVERS="nvidia-atv"
-
-  elif [ "$TARGET_ARCH" = "x86_64" ]; then
-    GRAPHIC_DRIVERS="r300 r600 radeonsi i915 i965 nvidia"
-  fi
+    GRAPHIC_DRIVERS="i915"
 
 # build and install remote support (yes / no)
   REMOTE_SUPPORT="yes"
@@ -199,16 +193,16 @@
   INITRAMFS_PARTED_SUPPORT="no"
 
 # build with swap support (yes / no)
-  SWAP_SUPPORT="yes"
+  SWAP_SUPPORT="no"
 
 # swap support enabled per default (yes / no)
-  SWAP_ENABLED_DEFAULT="yes"
+  SWAP_ENABLED_DEFAULT="no"
 
 # swapfile size if SWAP_SUPPORT=yes in MB
-  SWAPFILESIZE="512"
+  SWAPFILESIZE="256"
 
 # build with installer (yes / no)
-  INSTALLER_SUPPORT="no"
+  INSTALLER_SUPPORT="yes"
 
 # Testpackages for development (yes / no)
   TESTING="no"
@@ -233,7 +227,7 @@
   ADDON_SERVER_URL="http://addons.openelec.tv"
 
 # set the addon dirs
-  if [ "$PROJECT" = "ATV" ]; then
+  if [ "$PROJECT" = "ZBOX_ID12" ]; then
     ADDON_PATH="$ADDON_VERSION/Generic/$TARGET_ARCH"
   else
     ADDON_PATH="$ADDON_VERSION/$PROJECT/$TARGET_ARCH"
