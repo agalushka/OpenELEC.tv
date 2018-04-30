@@ -71,7 +71,7 @@
   OPTIMIZATIONS="normal"
 
 # Project CFLAGS
-  PROJECT_CFLAGS="-ffast-math -mfpmath=sse -ftree-loop-if-convet -fschedule-insns -fsched-pressure"
+  PROJECT_CFLAGS="-ffast-math -mfpmath=sse -fschedule-insns -fsched-pressure"
 
 # LTO (Link Time Optimization) support
   LTO_SUPPORT="yes"
