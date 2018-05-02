@@ -175,7 +175,7 @@
   DVDCSS_SUPPORT="no"
 
 # build and install with LAME cdrip encoder support
-  ENCODER_LAME="yes"
+  ENCODER_LAME="no"
 
 # additional drivers to install:
 # for a list of additinoal drivers see packages/linux-drivers
@@ -263,7 +263,7 @@
 # Xorg Graphic drivers to use (all / i915,i965,r200,r300,r600,nvidia,nouveau)
 # Space separated list is supported,
 # e.g. GRAPHIC_DRIVERS="i915 i965 r300 r600 nvidia nouveau"
-    GRAPHIC_DRIVERS="i915 i965"
+    GRAPHIC_DRIVERS="i915"
 
 # XBMC Player implementation to use (default / bcm2835-driver)
   XBMCPLAYER_DRIVER="default"
@@ -272,7 +272,7 @@
   VDPAU="no"
 
 # Use VAAPI video acceleration (needs intel i965 driver and a supported card)
-  VAAPI="yes"
+  VAAPI="no"
 
 # Use Broadcom CrystalHD Decoder Card for video acceleration 
 # (needs Kernelsupport for Broadcom Decoder Card and a supported card)
@@ -282,19 +282,19 @@
   REMOTE_SUPPORT="yes"
 
 # build and install ATV IR remote support (yes / no)
-  ATVCLIENT_SUPPORT="yes"
+  ATVCLIENT_SUPPORT="no"
 
 # build and install IRServer IR/LCD support (yes / no)
   IRSERVER_SUPPORT="yes"
 
 # build and install Joystick support (yes / no)
-  JOYSTICK_SUPPORT="yes"
+  JOYSTICK_SUPPORT="no"
 
 # build and install CEC adapter support (yes / no)
-  CEC_SUPPORT="yes"
+  CEC_SUPPORT="no"
 
 # build and install iSCSI support - iscsistart (yes / no)
-  ISCSI_SUPPORT="yes"
+  ISCSI_SUPPORT="no"
 
 # LCD driver to Use - Possible drivers are ( Comma seperated:
 # bayrad,CFontz,CFontz633,CFontzPacket,curses,CwLnx,dm140,
@@ -319,7 +319,7 @@
 # additional Firmware to use (dvb-firmware, misc-firmware, wlan-firmware)
 # Space separated list is supported,
 # e.g. FIRMWARE="dvb-firmware misc-firmware wlan-firmware"
-  FIRMWARE="misc-firmware"
+  FIRMWARE=""
 
 # build with lm_sensors hardware monitoring support (yes / no)
   SENSOR_SUPPORT="yes"
@@ -349,7 +349,7 @@
   CRON_SUPPORT="yes"
 
 # Perf support in development builds (yes / no)
-  PERF_SUPPORT="yes"
+  PERF_SUPPORT="no"
 
 # Distribution Specific source location
   DISTRO_MIRROR="http://sources.openelec.tv/mirror"
